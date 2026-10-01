@@ -20,6 +20,7 @@ import {
   type ReactNode,
 } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import WhyGraceland from "@/components/WhyGraceland";
 import coverImage from "@/assets/cover.jpg";
 import welcomeCare from "@/assets/welcome-care.jpg";
 import homeCareDetails from "@/assets/home-care-details.jpg";
@@ -101,13 +102,6 @@ const services = [
     items: ["Chronic disease management", "Continence care", "Allied health coordination", "Carer support"],
   },
 ] as const;
-
-const approach = [
-  ["Care at home", "Treatment in your own space, with fewer trips to hospital."],
-  ["Early detection", "Regular visits catch small changes before they become emergencies."],
-  ["Family guidance", "We show carers the routines and safety steps that make daily life easier."],
-  ["Continuity", "If your funding changes, your care team can stay familiar."],
-];
 
 const howItWorks = [
   { num: "01", title: "Tell us what you need", text: "Call, email or complete the online form. Tell us who needs care and which funding they hold." },
@@ -593,28 +587,6 @@ function Marquee() {
   );
 }
 
-// ─── Key facts row ────────────────────────────────────────────────────────────
-function KeyFacts() {
-  const facts = [
-    { value: "[TO CONFIRM]", label: "Years of nursing experience" },
-    { value: "3", label: "Funding streams supported" },
-    { value: "Brisbane", label: "Service area, QLD" },
-    { value: "24 h", label: "Referral response target" },
-  ];
-  return (
-    <div className="mt-16 grid gap-4 border-y border-brand-border py-10 sm:grid-cols-2 lg:grid-cols-4">
-      {facts.map(({ value, label }) => (
-        <Reveal key={label}>
-          <strong className="font-display text-3xl font-semibold text-brand-blue">
-            {value}
-          </strong>
-          <p className="mt-1 text-sm text-brand-muted">{label}</p>
-        </Reveal>
-      ))}
-    </div>
-  );
-}
-
 // ─── Home page ────────────────────────────────────────────────────────────────
 function HomePage() {
   const [loaded, setLoaded] = useState(false);
@@ -823,50 +795,7 @@ function HomePage() {
       </section>
 
       {/* ── WHY GRACELAND ───────────────────────────────────────────────────── */}
-      <section className="bg-brand-navy py-24 text-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-12 lg:grid-cols-[1fr_1.4fr]">
-            <Reveal>
-              <span className="font-mono text-xs font-semibold uppercase text-white/60">
-                Why Graceland
-              </span>
-              <h2 className="mt-4 font-display text-4xl font-medium leading-tight sm:text-5xl">
-                Why families choose an integrated approach
-              </h2>
-              <p className="mt-5 text-white/70">
-                Care needs change. Our three services sit under one roof so you
-                never have to start again.
-              </p>
-              <div className="mt-8">
-                <Link
-                  to="/book"
-                  className="inline-flex min-h-[48px] items-center gap-3 rounded-full bg-brand-orange px-6 text-base font-semibold text-brand-navy transition-transform hover:-translate-y-0.5"
-                >
-                  Book an appointment <ArrowRight size={18} />
-                </Link>
-              </div>
-            </Reveal>
-
-            <div className="grid gap-4 md:grid-cols-2">
-              {approach.map(([title, text], i) => (
-                <Reveal
-                  key={title as string}
-                  delay={i * 0.1}
-                  className="rounded-2xl border border-white/10 border-t-4 border-t-brand-orange bg-white/5 p-6"
-                >
-                  <span className="font-mono text-xl font-semibold text-brand-orange">
-                    0{i + 1}
-                  </span>
-                  <h3 className="mt-3 font-display text-xl font-medium">{title as string}</h3>
-                  <p className="mt-2 text-sm text-white/70">{text as string}</p>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-
-          <KeyFacts />
-        </div>
-      </section>
+      <WhyGraceland />
 
       {/* ── TESTIMONIALS ────────────────────────────────────────────────────── */}
       <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
