@@ -212,7 +212,6 @@ function Step2({ form, setForm }: { form: FormState; setForm: (f: FormState) => 
               </button>
             ))}
           </div>
-          <p className="mt-2 text-xs text-brand-muted">[Hours to confirm with client]</p>
         </div>
       </div>
     </div>
@@ -429,7 +428,7 @@ function BookPage() {
       if (!form.phone.trim()) e.phone = "Please enter a phone number.";
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = "Please enter a valid email.";
       if (!form.suburb.trim()) e.suburb = "Please enter your suburb.";
-      if (!form.consent) e.consent = "Please tick to confirm your consent.";
+      if (!form.consent) e.consent = "Please tick the box to give your consent.";
       setErrors(e);
       return Object.keys(e).length === 0;
     }

@@ -797,38 +797,6 @@ function HomePage() {
       {/* ── WHY GRACELAND ───────────────────────────────────────────────────── */}
       <WhyGraceland />
 
-      {/* ── TESTIMONIALS ────────────────────────────────────────────────────── */}
-      <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
-        <Reveal>
-          <span className="font-mono text-xs font-semibold uppercase text-brand-muted">
-            Family stories
-          </span>
-          <h2 className="mt-4 font-display text-4xl font-medium sm:text-5xl">
-            What families say
-          </h2>
-        </Reveal>
-
-        <div className="mt-10 grid gap-6 lg:grid-cols-2">
-          {[1, 2].map((n) => (
-            <Reveal
-              key={n}
-              delay={n * 0.1}
-              className="rounded-[1.75rem] bg-soft p-8 sm:p-10"
-            >
-              <span className="font-mono text-xs font-semibold uppercase text-brand-muted">
-                Family story
-              </span>
-              <blockquote className="mt-8 font-display text-2xl leading-snug text-brand-navy">
-                "[TESTIMONIAL TO CONFIRM WITH CLIENT]"
-              </blockquote>
-              <p className="mt-6 text-sm font-semibold text-brand-muted">
-                [NAME AND DETAILS TO CONFIRM WITH CLIENT]
-              </p>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
       {/* ── CONTACT CTA ─────────────────────────────────────────────────────── */}
       <section id="contact" className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
         <Reveal className="grid overflow-hidden rounded-[2rem] bg-soft lg:grid-cols-2">
@@ -880,7 +848,7 @@ function HomePage() {
       {/* ── FOOTER ──────────────────────────────────────────────────────────── */}
       <footer className="px-4 pb-4 sm:px-6">
         <div className="mx-auto max-w-[1500px] rounded-[2rem] bg-brand-navy px-6 py-12 text-white sm:px-10 lg:px-14">
-          <div className="grid gap-10 border-b border-white/15 pb-10 lg:grid-cols-[1.6fr_1fr_1fr_1fr]">
+          <div className="grid gap-10 border-b border-white/15 pb-10 lg:grid-cols-[1.6fr_1fr_1fr]">
             <div>
               <div className="flex items-center gap-3">
                 <img src={logoSvg} alt="Graceland Integrated Care" className="h-9 w-auto" />
@@ -930,28 +898,12 @@ function HomePage() {
                 <li>Brisbane, Queensland</li>
               </ul>
             </div>
-            <div>
-              <h2 className="font-mono text-xs font-semibold uppercase text-white/50">
-                Provider details
-              </h2>
-              <ul className="mt-4 space-y-2 text-sm text-white/70">
-                <li>ABN [TO CONFIRM]</li>
-                <li>NDIS registration [TO CONFIRM]</li>
-                <li>DVA provider number [TO CONFIRM]</li>
-                <li>
-                  <a href="#top" className="hover:text-white">
-                    Privacy [LEGAL REVIEW REQUIRED]
-                  </a>
-                </li>
-              </ul>
-            </div>
           </div>
           <div className="mt-8 flex flex-col gap-3 text-xs text-white/50 sm:flex-row sm:justify-between">
             <p>
               Graceland Integrated Care is a trading name of Graceland Healthcare
-              Group Pty Ltd. ABN [to confirm].
+              Group Pty Ltd.
             </p>
-            <p>Acknowledgement of Country [TO CONFIRM WITH CLIENT].</p>
           </div>
         </div>
       </footer>
