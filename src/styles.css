@@ -220,3 +220,27 @@
   0%   { opacity: 1; transform: translateY(0); }
   100% { opacity: 0; transform: translateY(-100%); }
 }
+
+/* Homepage loading placeholders share the site's brand palette. */
+.skeleton-block {
+  position: relative;
+  overflow: hidden;
+  background: var(--brand-border);
+}
+.skeleton-block-light {
+  background: color-mix(in oklch, var(--background) 16%, var(--brand-navy));
+}
+.skeleton-block::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, transparent 20%, color-mix(in oklch, var(--background) 30%, transparent) 50%, transparent 80%);
+  transform: translateX(-100%);
+  animation: skeleton-shimmer 1.6s ease-in-out infinite;
+}
+@keyframes skeleton-shimmer {
+  to { transform: translateX(100%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-block::after { animation: none; display: none; }
+}

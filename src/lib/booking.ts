@@ -81,7 +81,7 @@ IMPORTANT: Do not store or share any health information contained in this reques
     } catch (err) {
       // Graceful degradation: log and surface a user-friendly error
       console.error("Booking email error:", err);
-      throw new Error("We could not send your request. Please call us on 0450 698 303 or email info@gracelandintegratedcare.com.au directly.");
+      throw new Error("We could not send your request. Please call us on 1800 960 980 or email info@gracelandintegratedcare.com.au directly.");
     }
 
     return { ok: true };

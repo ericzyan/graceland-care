@@ -3,7 +3,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Check, ChevronLeft, MessageCircle, Phone } from "lucide-react";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import logoSvg from "@/assets/Logo-02.svg";
+import SocialIcons from "@/components/SocialIcons";
+import logoSvg from "@/assets/White logo-03.svg";
 import { sendBookingRequest, type BookingData } from "@/lib/booking";
 
 export const Route = createFileRoute("/book")({
@@ -461,7 +462,7 @@ function BookPage() {
         setServerError(
           err instanceof Error
             ? err.message
-            : "Something went wrong. Please call us on 0450 698 303."
+            : "Something went wrong. Please call us on 1800 960 980."
         );
       } finally {
         setSubmitting(false);
@@ -495,7 +496,10 @@ function BookPage() {
           >
             <ChevronLeft size={16} /> Back to home
           </Link>
-          <img src={logoSvg} alt="Graceland Integrated Care" className="mb-8 h-10 w-auto" />
+          <div className="mb-8 flex items-center gap-3">
+            <img src={logoSvg} alt="" className="h-12 w-auto shrink-0" />
+            <span className="text-lg font-semibold sm:text-xl">Graceland Integrated Care</span>
+          </div>
           <h1 className="font-display text-4xl font-medium leading-tight sm:text-5xl">
             Book your appointment
           </h1>
@@ -503,6 +507,7 @@ function BookPage() {
             Choose a time that suits you. A member of our team will confirm within
             one business day.
           </p>
+          <SocialIcons />
         </div>
       </div>
 
@@ -601,10 +606,10 @@ function BookPage() {
             <p className="font-semibold text-brand-navy">Prefer to get in touch directly?</p>
             <div className="mt-4 flex flex-wrap gap-3">
               <a
-                href="tel:0450698303"
+                href="tel:1800960980"
                 className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-brand-blue px-5 text-sm font-semibold text-white"
               >
-                <Phone size={16} /> 0450 698 303
+                <Phone size={16} /> 1800 960 980
               </a>
               <a
                 href="mailto:info@gracelandintegratedcare.com.au"

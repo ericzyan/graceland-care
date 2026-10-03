@@ -20,12 +20,14 @@ import {
   type ReactNode,
 } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import SocialIcons from "@/components/SocialIcons";
 import WhyGraceland from "@/components/WhyGraceland";
 import coverImage from "@/assets/cover.jpg";
 import welcomeCare from "@/assets/welcome-care.jpg";
 import homeCareDetails from "@/assets/home-care-details.jpg";
 import familyGuidance from "@/assets/family-guidance.jpg";
 import logoSvg from "@/assets/Logo-02.svg";
+import whiteLogoSvg from "@/assets/White logo-03.svg";
 
 // ─── Route ────────────────────────────────────────────────────────────────────
 export const Route = createFileRoute("/")({
@@ -35,7 +37,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "DVA, NDIS and Aged Care community nursing at home in Brisbane. Integrated care for every chapter of life. Call 0450 698 303.",
+          "DVA, NDIS and Aged Care community nursing at home in Brisbane. Integrated care for every chapter of life. Call 1800 960 980.",
       },
       { property: "og:title", content: "Graceland Integrated Care | Community Nursing in Brisbane" },
       {
@@ -56,8 +58,16 @@ export const Route = createFileRoute("/")({
           "@type": "LocalBusiness",
           name: "Graceland Integrated Care",
           legalName: "Graceland Healthcare Group Pty Ltd",
-          telephone: "+61450698303",
+          telephone: "1800960980",
           email: "info@gracelandintegratedcare.com.au",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "56 Alfred Rose Crescent",
+            addressLocality: "Collingwood Park",
+            addressRegion: "QLD",
+            postalCode: "4301",
+            addressCountry: "AU",
+          },
           areaServed: "Brisbane, Queensland",
         }),
       },
@@ -173,42 +183,61 @@ function useLenis(reduced: boolean) {
 function SiteLoader({ onDone }: { onDone: () => void }) {
   const reduced = useReducedMotion();
   useEffect(() => {
-    if (reduced) { onDone(); return; }
-    const t = setTimeout(onDone, 950);
-    return () => clearTimeout(t);
-  }, [reduced, onDone]);
-
-  if (reduced) return null;
+    const image = new Image();
+    let finished = false;
+    const done = () => {
+      if (finished) return;
+      finished = true;
+      clearTimeout(timeout);
+      onDone();
+    };
+    // Never block the page indefinitely if the cover image fails to load.
+    const timeout = window.setTimeout(done, 5000);
+    image.onload = done;
+    image.onerror = done;
+    image.src = coverImage;
+    if (image.complete) done();
+    return () => {
+      finished = true;
+      clearTimeout(timeout);
+      image.onload = null;
+      image.onerror = null;
+    };
+  }, [onDone]);
 
   return (
     <motion.div
-      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-brand-navy"
+      className="site-skeleton fixed inset-0 z-[9999] overflow-hidden bg-brand-navy px-5 sm:px-10 lg:px-16"
       initial={{ opacity: 1 }}
-      exit={{ opacity: 0, scale: 0.99, transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] } }}
+      exit={{ opacity: 0, transition: { duration: reduced ? 0 : 0.25 } }}
+      role="status"
+      aria-label="Loading Graceland Integrated Care"
     >
-      <div className="flex items-center gap-3.5" aria-label="Loading Graceland Integrated Care" role="status">
-        {[
-          "bg-brand-blue",
-          "bg-white border-2 border-brand-orange",
-          "bg-brand-orange",
-        ].map((cls, i) => (
-          <motion.span
-            key={i}
-            className={`block size-4 rounded-full ${cls}`}
-            initial={{ opacity: 0.3, scale: 0.8, y: 4 }}
-            animate={{
-              opacity: [0.4, 1, 0.4],
-              scale: [0.8, 1.15, 0.8],
-              y: [0, -6, 0],
-            }}
-            transition={{
-              repeat: Infinity,
-              duration: 1.0,
-              delay: i * 0.18,
-              ease: "easeInOut",
-            }}
-          />
-        ))}
+      <span className="sr-only">Loading Graceland Integrated Care…</span>
+      <div aria-hidden="true">
+        <div className="absolute inset-x-3 top-3 mx-auto flex max-w-7xl items-center justify-between gap-6 rounded-full bg-background px-5 py-4 sm:inset-x-6 sm:top-5">
+          <div className="skeleton-block h-9 w-36 rounded-full sm:w-52" />
+          <div className="hidden gap-5 md:flex">
+            {[0, 1, 2].map((item) => <div key={item} className="skeleton-block h-4 w-20 rounded-full" />)}
+          </div>
+          <div className="skeleton-block h-10 w-20 rounded-full sm:w-36" />
+        </div>
+        <div className="flex min-h-[100svh] max-w-3xl flex-col justify-center pb-16 pt-32 sm:pb-20 sm:pt-36 lg:pb-24 lg:pt-40">
+          <div className="skeleton-block skeleton-block-light mb-8 h-7 w-44 rounded-full" />
+          <div className="space-y-4">
+            <div className="skeleton-block skeleton-block-light h-12 w-full rounded-xl sm:h-20" />
+            <div className="skeleton-block skeleton-block-light h-12 w-4/5 rounded-xl sm:h-20" />
+            <div className="skeleton-block skeleton-block-light h-12 w-3/5 rounded-xl sm:h-20" />
+          </div>
+          <div className="mt-8 max-w-lg space-y-3">
+            <div className="skeleton-block skeleton-block-light h-4 w-full rounded-full" />
+            <div className="skeleton-block skeleton-block-light h-4 w-5/6 rounded-full" />
+          </div>
+          <div className="mt-8 flex gap-3">
+            <div className="skeleton-block skeleton-block-light h-12 w-44 rounded-full" />
+            <div className="skeleton-block skeleton-block-light h-12 w-32 rounded-full" />
+          </div>
+        </div>
       </div>
     </motion.div>
   );
@@ -412,10 +441,10 @@ function Header({ loaded }: { loaded: boolean }) {
                   Book an appointment
                 </Link>
                 <a
-                  href="tel:0450698303"
+                  href="tel:1800960980"
                   className="flex min-h-[46px] items-center justify-center gap-2 rounded-full border border-slate-200 text-sm font-medium text-brand-navy hover:bg-slate-50"
                 >
-                  <Phone size={16} /> 0450 698 303
+                  <Phone size={16} /> 1800 960 980
                 </a>
               </div>
             </motion.div>
@@ -600,13 +629,6 @@ function HomePage() {
     setLoaded(true);
   }, []);
 
-  useEffect(() => {
-    if (reduced) {
-      setShowLoader(false);
-      setLoaded(true);
-    }
-  }, [reduced]);
-
   const { scrollY } = useScroll();
   const heroBgScale = useTransform(scrollY, [0, 600], [1, 1.08]);
 
@@ -688,7 +710,7 @@ function HomePage() {
               href="#contact"
               className="inline-flex min-h-[52px] sm:min-h-[56px] items-center gap-2.5 rounded-full border border-white/30 bg-white/5 px-7 text-base sm:text-lg font-semibold text-white backdrop-blur transition-all duration-200 hover:bg-white/15"
             >
-              <Phone size={19} /> 0450 698 303
+              <Phone size={19} /> 1800 960 980
             </a>
           </motion.div>
 
@@ -819,10 +841,10 @@ function HomePage() {
                 Book an appointment <ArrowRight size={16} />
               </Link>
               <a
-                href="tel:0450698303"
+                href="tel:1800960980"
                 className="inline-flex min-h-[48px] items-center gap-2 rounded-full bg-brand-blue px-5 text-sm font-semibold text-white"
               >
-                <Phone size={17} /> 0450 698 303
+                <Phone size={17} /> 1800 960 980
               </a>
               <a
                 href="mailto:info@gracelandintegratedcare.com.au"
@@ -851,7 +873,7 @@ function HomePage() {
           <div className="grid gap-10 border-b border-white/15 pb-10 lg:grid-cols-[1.6fr_1fr_1fr]">
             <div>
               <div className="flex items-center gap-3">
-                <img src={logoSvg} alt="Graceland Integrated Care" className="h-9 w-auto" />
+                <img src={whiteLogoSvg} alt="Graceland Integrated Care" className="h-9 w-auto" />
                 <span className="font-semibold">Graceland Integrated Care</span>
               </div>
               <p className="mt-5 max-w-xs text-sm text-white/65">
@@ -866,6 +888,7 @@ function HomePage() {
               >
                 <MessageCircle size={17} /> Chat on WhatsApp
               </a>
+              <SocialIcons />
             </div>
             <div>
               <h2 className="font-mono text-xs font-semibold uppercase text-white/50">
@@ -883,8 +906,8 @@ function HomePage() {
               </h2>
               <ul className="mt-4 space-y-2 text-sm text-white/70">
                 <li>
-                  <a href="tel:0450698303" className="hover:text-white">
-                    0450 698 303
+                  <a href="tel:1800960980" className="hover:text-white">
+                    1800 960 980
                   </a>
                 </li>
                 <li>
@@ -895,7 +918,7 @@ function HomePage() {
                     info@gracelandintegratedcare.com.au
                   </a>
                 </li>
-                <li>Brisbane, Queensland</li>
+                <li>56 Alfred Rose Crescent, Collingwood Park QLD 4301, Australia</li>
               </ul>
             </div>
           </div>
